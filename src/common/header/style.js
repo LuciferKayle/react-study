@@ -39,10 +39,34 @@ export const NavItem = styled.div`
         color: #969696;
     }
 
+    .iconAa {
+        font-size: 20px;
+    }
+
     &.active {
         color: #ea6f5a;
     }
 
+`
+
+export const SearchWrapper = styled.div`
+    position: relative;
+    float: left;
+
+    .iconfont {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        width: 30px;
+        line-height: 30px;
+        border-radius: 50%;
+        text-align: center;
+
+        &.focused {
+            color: #ffffff;
+            background-color: #353535;
+        }
+    }
 `
 
 export const NavSearch = styled.input.attrs({
@@ -60,10 +84,30 @@ export const NavSearch = styled.input.attrs({
     outline: none;
     margin-left: 20px;
 
+    &.my-node-enter {
+        width: 160px;
+        transition: all .2s ease-out;
+    }
+
+    &.my-node-enter-active {
+        width: 240px;
+    }
+
+    &.my-node-exit {
+        transition: all .2s ease-out;
+    }
+
+    &.my-node-exit-active {
+        width: 160px;
+    }
+
+    &.focused {
+        width: 240px;
+    }
+
     &::placeholder {
         color: #999999;
     }
-
 `
 
 export const Addition = styled.div`
