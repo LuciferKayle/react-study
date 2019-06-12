@@ -98,11 +98,9 @@ export const SearchInfoSwitch = styled.div`
 
     .iconfont {
         font-size: 13px;
-        transition: .5s ease; 
-
-        &.active {
-            transform: rotate(1440deg);
-        }
+        transform-origin: center center;
+        transition: .5s ease;
+        display: inline-block;
     }
 `
 export const SearchInfoItem = styled.div`

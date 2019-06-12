@@ -41,3 +41,12 @@ export const getList = () => {
         });
     }
 }
+
+export const mouseEnter = () => ({
+    type:  constants.CHANGE_MOUSE_ENTER,
+})
+
+
+export const mouseLeave = () => ({
+    type:  constants.CHANGE_MOUSE_LEAVE,
+})

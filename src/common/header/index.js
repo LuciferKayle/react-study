@@ -2,7 +2,8 @@ import React, {Component}  from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import * as actionCreator from './store/actionCreator';
-
+import { fromJS } from 'immutable';
+import { shuffle } from '../../libs/utils';
 
 import {
     HeaderWrapper,
@@ -21,6 +22,8 @@ import {
 
 class Header extends Component {
     render() {
+        const {focused,totalList,handleInputFocus,handleInputBlur} = this.props;
+        
         return (
         <HeaderWrapper>
             <Logo/>
@@ -33,14 +36,14 @@ class Header extends Component {
                 <NavItem className="right">登录</NavItem>
         
                 <SearchWrapper>
-                    <CSSTransition in={this.props.focused} timeout={200} classNames="my-node">
+                    <CSSTransition in={focused} timeout={200} classNames="my-node">
                         <NavSearch 
-                            className={this.props.focused ? 'focused' : ''}
-                            onFocus={this.props.handleInputFocus}
-                            onBlur={this.props.handleInputBlur}
+                            className={focused ? 'focused' : ''}
+                            onFocus={()=> handleInputFocus(totalList)}
+                            onBlur={handleInputBlur}
                         />
                     </CSSTransition>
-                    <i className={`iconfont iconiconfontzhizuobiaozhun22 ${this.props.focused ? 'focused' : ''}`}></i>
+                    <i className={`iconfont iconiconfontzhizuobiaozhun22 ${focused ? 'focused' : ''}`}></i>
         
                     {this.getListArea()}
         
@@ -59,13 +62,17 @@ class Header extends Component {
     }
 
     getListArea = () => {
-        if(this.props.focused) {
+        const {
+            totalList,
+            handleSearchPage
+        } = this.props;
+        if(this.props.focused || this.props.mouseIn) {
             return (
-            <SearchTipsContainer>   
+            <SearchTipsContainer onMouseEnter={this.props.handleMouseEnter} onMouseLeave={this.props.handleMouseLeave}>
                 <SearchInfoTitle>
                     热门搜索
-                    <SearchInfoSwitch>
-                        <i className="iconfont iconhuanyipi"></i>
+                    <SearchInfoSwitch onClick={() => handleSearchPage(totalList, this.spinIcon)}>
+                        <i ref={(icon) => {this.spinIcon = icon}} className="iconfont iconhuanyipi"></i>
                         &nbsp;换一批
                     </SearchInfoSwitch>
                 </SearchInfoTitle>
@@ -80,28 +87,44 @@ class Header extends Component {
             );
         } else {
             return null;
-        }
-    }
+        };
+    };
 }
 
 const mapStateToProps = (state) => {
     return {
         focused: state.get('header').get('focused'),
-        list: state.get('header').get('showSearchList')
+        list: state.get('header').get('showSearchList'),
+        totalList: state.get('header').get('searchList'),        
+        mouseIn: state.get('header').get('mouseIn'),
     };
   };
   
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleInputFocus() {
+        handleInputFocus(list) {
+            (list.size === 0) && dispatch(actionCreator.getList());             
             dispatch(actionCreator.searchFocus());
-            dispatch(actionCreator.getList());
         },
         handleInputBlur() {
             dispatch(actionCreator.searchBlur());
         },
-        handleSearchPage() {
-            dispatch(actionCreator.changeShowSearchList());
+        handleSearchPage(totalList, spinIcon) {
+            let originAngel = spinIcon.style.transform.replace(/[^0-9]/ig,'');
+            if(originAngel) {
+                originAngel = parseInt(originAngel,10);
+            } else {
+                originAngel = 0;
+            }
+            spinIcon.style.transform = 'rotate(' + (originAngel + 360) +'deg)';
+            let result = shuffle(totalList.toJS()).slice(0,10);
+            dispatch(actionCreator.changeShowSearchList(fromJS(result)));
+        },
+        handleMouseEnter() {
+            dispatch(actionCreator.mouseEnter());
+        },
+        handleMouseLeave() {
+            dispatch(actionCreator.mouseLeave());
         }
     }
 }

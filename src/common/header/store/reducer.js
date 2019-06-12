@@ -7,7 +7,8 @@ import { fromJS } from 'immutable';
 const defaultState = fromJS({
     focused: false,
     searchList: [],
-    showSearchList: []
+    showSearchList: [],
+    mouseIn: false,
 });
 
 
@@ -21,6 +22,10 @@ export default (state = defaultState, action) => {
             return state.set('searchList', action.data);
         case constants.CHANGE_SHOW_SEARCH_LIST:
             return state.set('showSearchList', action.data);
+        case constants.CHANGE_MOUSE_ENTER:
+            return state.set('mouseIn', true);
+        case constants.CHANGE_MOUSE_LEAVE:
+            return state.set('mouseIn',false);
         default:
             return state;
    }
