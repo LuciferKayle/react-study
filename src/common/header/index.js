@@ -1,5 +1,6 @@
 import React  , {Component} from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
 
 import {
     HeaderWrapper,
@@ -12,19 +13,7 @@ import {
     Button
 } from './style'
 
-class HeadWarpper extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            focused: false
-        }
-
-        this.handleInputFocus = this.handleInputFocus.bind(this);
-        this.handleInputBlur = this.handleInputBlur.bind(this);
-
-    }
-
+class Header extends Component {
     render() {
         return (
             <HeaderWrapper>
@@ -38,14 +27,14 @@ class HeadWarpper extends Component {
                     <NavItem className="right">登录</NavItem>
 
                     <SearchWrapper>
-                        <CSSTransition in={this.state.focused} timeout={200} classNames="my-node">
+                        <CSSTransition in={this.props.focused} timeout={200} classNames="my-node">
                             <NavSearch 
-                                className={this.state.focused ? 'focused' : ''}
-                                onFocus={this.handleInputFocus}
-                                onBlur={this.handleInputBlur}
+                                className={this.props.focused ? 'focused' : ''}
+                                onFocus={this.props.handleInputFocus}
+                                onBlur={this.props.handleInputBlur}
                             />
                         </CSSTransition>
-                        <i className={`iconfont iconiconfontzhizuobiaozhun22 ${this.state.focused ? 'focused' : ''}`}></i>
+                        <i className={`iconfont iconiconfontzhizuobiaozhun22 ${this.props.focused ? 'focused' : ''}`}></i>
                     </SearchWrapper>
                     
                     <Addition>
@@ -59,19 +48,34 @@ class HeadWarpper extends Component {
             </HeaderWrapper>
         )
     }
-
-    handleInputFocus(e) {
-        this.setState({
-            focused: true
-        })
-    }
-    
-    handleInputBlur() {
-        this.setState({
-            focused: false
-        })
-    }
-
 }   
 
-export default HeadWarpper;
+const mapStateToProps = (state) => {
+    return {
+        focused: state.focused
+    };
+  };
+  
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleInputFocus() {
+            const action = {
+                type: 'search_focus'
+            }
+            dispatch(action);
+        },
+        handleInputBlur() {
+            const action = {
+                type: 'search_blur'
+            }
+            dispatch(action);
+        }
+    }
+}
+  
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Header);
