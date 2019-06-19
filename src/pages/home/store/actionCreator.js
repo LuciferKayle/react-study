@@ -14,6 +14,12 @@ const loadMoreData = (result,nextPage) => ({
     nextPage
 })
 
+export const toggleScrollTop = (value) => ({
+    type: constants.CHANGE_SCROLL_TOP_STATE,
+    value
+})
+
+
 export const getHomeData = () => {
     return (dispatch) => {
         axios.get('/api/home.json').then(res => {

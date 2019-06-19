@@ -12,7 +12,8 @@ import {
     RecomandItemRight,
     BoardContainer,
     QrboxContainer,
-    AdvertiseBanner
+    AdvertiseBanner,
+    ScrollToTop
 } from './style';
 
 import RecommandAuthor from './components/recommandAuthor';
@@ -21,12 +22,19 @@ class Home extends Component {
 
     componentWillMount() {
         this.props.getHomeData();
+        window.addEventListener('scroll', this.props.changeScrollTopShow);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.props.changeScrollTopShow);
     }
 
     render() {
-        const { loadMore ,page} = this.props;
+        const { loadMore ,page , scrollTopstate} = this.props;
         return (
             <HomeWrapper>
+                {scrollTopstate ? <ScrollToTop onClick={this.handleScrollTop}>回到顶部</ScrollToTop> : null }
+                
                 <HomeWrapperLeft>
                     <img className="banner-pic" src="//upload.jianshu.io/admin_banners/web_images/4660/224da83c76e01d5deff07e163615921233af5c82.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540" alt="banner-img" />
                     <RecomandContainier>
@@ -66,6 +74,10 @@ class Home extends Component {
         )
     }
 
+    handleScrollTop() {
+        window.scrollTo(0,0);
+    }
+
     getListArea() {
         let { topicList } = this.props;
         const listConent = topicList.map((item,index)=> {
@@ -97,7 +109,8 @@ class Home extends Component {
 const mapStateToProps = (state) => {
     return {
         topicList: state.getIn(['home','topicList']),
-        page: state.getIn(['home','articlePage']) + 1
+        page: state.getIn(['home','articlePage']) + 1,
+        scrollTopstate: state.getIn(['home','scrollTopstate'])
     }
 }
 
@@ -109,6 +122,15 @@ const mapDispatchToProps = (dispatch) => {
 
         loadMore(page) {
             dispatch(actionCreator.loadMoreHomeData(page));
+        },
+
+        changeScrollTopShow() {
+            let scrollTop = document.documentElement.scrollTop;
+            if( scrollTop > 400) {
+                dispatch(actionCreator.toggleScrollTop(true));
+            } else {
+                dispatch(actionCreator.toggleScrollTop(false));
+            }
         }
     }
 }

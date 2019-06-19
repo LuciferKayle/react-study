@@ -6,6 +6,7 @@ import { fromJS } from 'immutable';
 
 const defaultState = fromJS({
     state: 1,
+    scrollTopstate: false,
     topicList: [],
     articlePage: 1
 });
@@ -20,6 +21,8 @@ export default (state = defaultState, action) => {
                 'topicList': state.get('topicList').concat(fromJS(action.topicList)),
                 'articlePage': action.nextPage
             });
+        case constants.CHANGE_SCROLL_TOP_STATE:
+            return state.set('scrollTopstate', action.value);
     default:
         return state;
    }

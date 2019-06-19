@@ -1,5 +1,6 @@
 import styled from "styled-components";
 export const HomeWrapper = styled.div`
+    position: relative;
     width: 960px;
     min-height: 1000px;
     margin: 0 auto;
@@ -208,4 +209,17 @@ export const QrboxContainer = styled.div`
         
     }
     
+`
+export const  ScrollToTop = styled.div`
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    color: #888888;
+    line-height: 40px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #353535;
 `
