@@ -1,4 +1,4 @@
-// import * as constants from './constants';
+import * as constants from './constants';
 
 import { fromJS } from 'immutable';
 
@@ -6,13 +6,20 @@ import { fromJS } from 'immutable';
 
 const defaultState = fromJS({
     state: 1,
-    topicList: []
+    topicList: [],
+    articlePage: 1
 });
 
 
 export default (state = defaultState, action) => {
     switch(action.type) {
-
+        case constants.CHANGE_HOME_DATA:
+            return state.set('topicList', fromJS(action.topicList));
+        case constants.ADD_ARTICLE_LIST:
+            return state.merge({
+                'topicList': state.get('topicList').concat(fromJS(action.topicList)),
+                'articlePage': action.nextPage
+            });
     default:
         return state;
    }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { actionCreator } from './store';
+
 import {
     HomeWrapper,
     HomeWrapperLeft,
@@ -16,7 +18,13 @@ import {
 import RecommandAuthor from './components/recommandAuthor';
 
 class Home extends Component {
+
+    componentWillMount() {
+        this.props.getHomeData();
+    }
+
     render() {
+        const { loadMore ,page} = this.props;
         return (
             <HomeWrapper>
                 <HomeWrapperLeft>
@@ -24,7 +32,7 @@ class Home extends Component {
                     <RecomandContainier>
                         {this.getListArea()}
                     </RecomandContainier>
-                    <a data-page="3" href="/" className="load-more">阅读更多</a>
+                    <span data-page="3" onClick={ ()=> (loadMore(page))} className="load-more">阅读更多</span>
                 </HomeWrapperLeft>
                 <HomeWrapperRight>
                     <BoardContainer>
@@ -65,17 +73,17 @@ class Home extends Component {
                 <RecomandItem key={index}> 
                     <RecomandItemLeft>
                         <h3 className="title">
-                            <a href="/p/92913756b1ff">使用多闪助手加好友，全自动批量化加粉解放双手，引抖音流量，日引千粉！</a>
+                            {item.get('title')}
                         </h3>
-                        <div className="abstract">多闪上线一段时间了，相信不少的伙伴都开始体验了，近不少人看到我们前面写的文章，一直问我如何赚钱，如何添加好友，如何参加多闪的福利，其实这些都是比</div>
+                        <div className="abstract">{item.get('summary')}</div>
                         <div className="user-collect-info">
-                            <span>涛_05e2</span>
-                            <i className="iconfont iconicon_comment">1</i>
-                            <i className="iconfont iconaixin">199</i>
+                            <span>{item.get('name')}</span>
+                            <i className="iconfont iconicon_comment">{item.get('comments')}</i>
+                            <i className="iconfont iconaixin">{item.get('collect')}</i>
                         </div>
                     </RecomandItemLeft>
                     <RecomandItemRight>
-                        <img className="recommend-item-pic" src="//upload.jianshu.io/admin_banners/web_images/4660/224da83c76e01d5deff07e163615921233af5c82.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540" alt="banner-img" />
+                        <img className="recommend-item-pic" src={item.get('img_url')} alt="banner-img" />
                     </RecomandItemRight>
                 </RecomandItem>
     
@@ -88,9 +96,20 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        // topicList: state.get('home').get('topicList')
-        topicList: state.getIn(['home','topicList'])
-
+        topicList: state.getIn(['home','topicList']),
+        page: state.getIn(['home','articlePage']) + 1
     }
 }
-export default connect(mapStateToProps,null)(Home);
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getHomeData() {
+            dispatch(actionCreator.getHomeData());
+        },
+
+        loadMore(page) {
+            dispatch(actionCreator.loadMoreHomeData(page));
+        }
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Home);

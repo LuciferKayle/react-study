@@ -70,18 +70,18 @@ export const RecomandItemLeft = styled.div`
     padding-right: 165px;
 
     .title {
-        a {
-            color: #333333;
-            margin: -7px 0 4px;
-            display: inherit;
-            font-size: 18px;
-            font-weight: 700;
-            line-height: 1.5;
+        color: #333333;
+        margin: -7px 0 4px;
+        display: inherit;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.5;
 
-            &:visited {
-                color: #999999;
-            }
+        &:hover {
+            text-decoration: underline;
         }
+
+
     }
     .abstract {
         margin: 0 0 8px;
