@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
     HomeWrapper,
     HomeWrapperLeft,
@@ -58,8 +59,8 @@ class Home extends Component {
     }
 
     getListArea() {
-        let list = [{},{}];
-        const listConent = list.map((item,index)=> {
+        let { topicList } = this.props;
+        const listConent = topicList.map((item,index)=> {
             return (
                 <RecomandItem key={index}> 
                     <RecomandItemLeft>
@@ -83,9 +84,13 @@ class Home extends Component {
         return listConent;
     }
 
-    
-
-
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+    return {
+        // topicList: state.get('home').get('topicList')
+        topicList: state.getIn(['home','topicList'])
+
+    }
+}
+export default connect(mapStateToProps,null)(Home);
