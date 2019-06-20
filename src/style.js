@@ -44,4 +44,7 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+a:link,a:visited{color:#444;text-decoration:none;}
+a:hover{color:#444;}
 `

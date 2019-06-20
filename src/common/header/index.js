@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actionCreator from './store/actionCreator';
 import { fromJS } from 'immutable';
 import { shuffle } from '../../libs/utils';
-// import { withRouter } from 'react-router-dom';
+import { withRouter,Link } from 'react-router-dom';
 import { actionCreator as loginActionCreator } from '../../pages/login/store';
 
 import {
@@ -57,7 +57,9 @@ class Header extends Component {
                 <Addition>
                     <Button>注册</Button>
                     <Button className="write"> 
-                        <i className="iconfont iconbi"> 写文章 </i>
+                        <Link to="/write">
+                            <i className="iconfont iconbi"> 写文章 </i>
+                        </Link>
                     </Button>
                 </Addition>
         
@@ -150,4 +152,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Header);
+)(withRouter(Header));

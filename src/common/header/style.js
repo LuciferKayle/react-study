@@ -187,6 +187,10 @@ export const Button = styled.div`
     &.write {    
         color: #fff;
         background-color: #ea6f5a;
+
+        a {
+            color: #ffffff;
+        }
     }
 `
 

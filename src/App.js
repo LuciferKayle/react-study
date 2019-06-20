@@ -7,6 +7,7 @@ import store from './store';
 import HomeWrapper from './pages/home';
 import Detail from './pages/detail';
 import Login from './pages/login';
+import Write from './pages/write';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route exact path="/" component={HomeWrapper} />
             <Route path="/detail/:id" component={Detail} />
             <Route path="/login" component={Login} />
+            <Route path="/write" component={Write} />
         </Provider>
       </Router>
   );
