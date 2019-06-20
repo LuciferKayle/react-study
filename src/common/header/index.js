@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import * as actionCreator from './store/actionCreator';
 import { fromJS } from 'immutable';
 import { shuffle } from '../../libs/utils';
+// import { withRouter } from 'react-router-dom';
+import { actionCreator as loginActionCreator } from '../../pages/login/store';
 
 import {
     HeaderWrapper,
@@ -22,7 +24,7 @@ import {
 
 class Header extends Component {
     render() {
-        const {focused,totalList,handleInputFocus,handleInputBlur} = this.props;
+        const {focused,totalList,handleInputFocus,handleInputBlur,loginState} = this.props;
         
         return (
         <HeaderWrapper>
@@ -33,7 +35,10 @@ class Header extends Component {
                 <NavItem className="right">
                     <i className="iconfont iconAa"></i>   
                 </NavItem>
-                <NavItem className="right">登录</NavItem>
+
+                <NavItem className="right" 
+                        onClick={() => this._changeLoginState(loginState)}>{loginState ? '退出' : '登录'}        
+                </NavItem>
         
                 <SearchWrapper>
                     <CSSTransition in={focused} timeout={200} classNames="my-node">
@@ -59,6 +64,13 @@ class Header extends Component {
             </Nav>
         </HeaderWrapper>
         )        
+    }
+
+    _changeLoginState(state) {
+        if(state) {
+            this.props.logOut();
+        }
+        this.props.history.push('/login');
     }
 
     getListArea = () => {
@@ -97,6 +109,7 @@ const mapStateToProps = (state) => {
         list: state.get('header').get('showSearchList'),
         totalList: state.get('header').get('searchList'),        
         mouseIn: state.get('header').get('mouseIn'),
+        loginState: state.getIn(['login','loginState'])
     };
   };
   
@@ -125,6 +138,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         handleMouseLeave() {
             dispatch(actionCreator.mouseLeave());
+        },
+
+        logOut() {
+            dispatch(loginActionCreator.loginOut());
         }
     }
 }

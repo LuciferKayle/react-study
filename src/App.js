@@ -6,7 +6,7 @@ import Header from './common/header/index';
 import store from './store';
 import HomeWrapper from './pages/home';
 import Detail from './pages/detail';
-
+import Login from './pages/login';
 
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
           <Header/>
             <Route exact path="/" component={HomeWrapper} />
             <Route path="/detail/:id" component={Detail} />
+            <Route path="/login" component={Login} />
         </Provider>
       </Router>
   );
