@@ -86,7 +86,7 @@ class Home extends Component {
                 <RecomandItem key={index}>
                     <RecomandItemLeft>
 
-                        <Link to="/detail">
+                        <Link to={`/detail/${index}`}>
                             <h3 className="title">
                                 {item.get('title')}
                             </h3>

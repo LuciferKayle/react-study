@@ -16,7 +16,7 @@ function App() {
         <Provider store={store}>
           <Header/>
             <Route exact path="/" component={HomeWrapper} />
-            <Route path="/detail" component={Detail} />
+            <Route path="/detail/:id" component={Detail} />
         </Provider>
       </Router>
   );
