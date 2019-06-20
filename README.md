@@ -1,5 +1,5 @@
 ## React 学习项目总结
-###项目技术栈简介
+### 项目技术栈简介
 - 基础项目库： react + redux + react-redux + react-router
 - 辅助库
 1. immutable

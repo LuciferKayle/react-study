@@ -1,6 +1,6 @@
 import React  from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 import { GlobalStyle } from './style';
 import Header from './common/header/index';
 import store from './store';
