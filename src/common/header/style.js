@@ -81,6 +81,7 @@ export const SearchTipsContainer = styled.div`
     box-shadow: 0 0 8px rgba(0,0,0,.2);
     padding: 20px 20px 10px;
     border-bottom: 1px solid #f0f0f0;
+    z-index: 100;
 `
 
 export const SearchInfoTitle = styled.div`

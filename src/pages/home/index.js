@@ -37,7 +37,7 @@ class Home extends Component {
                 {scrollTopstate ? <ScrollToTop onClick={this.handleScrollTop}>回到顶部</ScrollToTop> : null}
 
                 <HomeWrapperLeft>
-                    <img className="banner-pic" src="//upload.jianshu.io/admin_banners/web_images/4660/224da83c76e01d5deff07e163615921233af5c82.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540" alt="banner-img" />
+                    <img className="banner-pic" src="http://wechatapppro-1252524126.file.myqcloud.com/apppcHqlTPT3482/image/Y29udGVudE1hcmtldC1nb29kc0luZm8tODYwMTg3ODU.png" alt="banner-img" />
                     <RecomandContainier>
                         {this.getListArea()}
                     </RecomandContainier>
@@ -51,7 +51,7 @@ class Home extends Component {
                         <img className="board-img" src={require('../../static/images/home/banner-s-club-1.png')} alt="banner-img" />
                     </BoardContainer>
 
-                    <AdvertiseBanner style={{ backgroundImage: `url(https://oimagea3.ydstatic.com/image?id=787637783774084697&product=adpublish&w=1280&h=720&sc=0&rm=2&gsb=0&gsbd=60)` }}>
+                    <AdvertiseBanner style={{ backgroundImage: `url(//upload.jianshu.io/admin_banners/web_images/4660/224da83c76e01d5deff07e163615921233af5c82.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540)`}}>
                         <span className="label">广告</span>
                     </AdvertiseBanner>
 
@@ -66,7 +66,7 @@ class Home extends Component {
                     <RecommandAuthor></RecommandAuthor>
 
 
-                    <AdvertiseBanner style={{ backgroundImage: `url(https://oimagea3.ydstatic.com/image?id=787637783774084697&product=adpublish&w=1280&h=720&sc=0&rm=2&gsb=0&gsbd=60)` }}>
+                    <AdvertiseBanner style={{ backgroundImage: `url(//upload.jianshu.io/admin_banners/web_images/4660/224da83c76e01d5deff07e163615921233af5c82.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540)`}}>
                         <span className="label">广告</span>
                     </AdvertiseBanner>
 
@@ -82,6 +82,7 @@ class Home extends Component {
     getListArea() {
         let { topicList } = this.props;
         const listConent = topicList.map((item, index) => {
+
             return (
                 <RecomandItem key={index}>
                     <RecomandItemLeft>
